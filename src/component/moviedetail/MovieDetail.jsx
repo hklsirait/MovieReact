@@ -7,13 +7,17 @@ import { Link } from "react-router-dom";
 
 
 export function MovieDetail({ match }) {
+  
+ 
     let params = match.params;
     let genres = [];
+    // let movie_id = []
     const [isOpen, setIsOpen] = useState(false);
     const [detail, setDetail] = useState([]);
     const [video, setVideo] = useState([]);
     const [casts, setCasts] = useState([]);
     const [similarMovie, setSimilarMovie] = useState([]);
+    // const [rate, setRate] = useState([]);
   
     useEffect(() => {
       const fetchAPI = async () => {
@@ -22,9 +26,19 @@ export function MovieDetail({ match }) {
         setCasts(await fetchCasts(params.id));
         setSimilarMovie(await fetchSimilarMovie(params.id));
       };
-  
       fetchAPI();
     }, [params.id]);
+
+    // const apiKey = '02a0af71da7001b41628363583b340a7';
+    // const guestSession = '327bba39f3fc73896257444f71f4a6f0';
+    // const session = '2629f70fb498edc263a0adb99118ac41f0053e8c';
+    // const ratePostURL = `https://api.themoviedb.org/3/movie/${movie_id}/rating?api_key=${apiKey}&guest_session_id=${guestSession}&session_id=${session}`;
+     
+    // useEffect(() => {
+    //   axios.post(ratePostURL, {
+    //     value: rate
+    //   })
+    // })
   
     genres = detail.genres;
   
@@ -138,7 +152,7 @@ export function MovieDetail({ match }) {
   
         <div className="row mt-3">
           <div className="col">
-            <p style={{ color: "#5a606b", fontWeight: "bolder" }}>GENRE</p>
+            <p style={{ color: "#b0210b", fontWeight: "bolder" }}>GENRE</p>
           </div>
         </div>
   
@@ -153,7 +167,7 @@ export function MovieDetail({ match }) {
             <div className="text-center">
             </div>
             <div className="mt-3">
-              <p style={{ color: "#5a606b", fontWeight: "bolder" }}>OVERVIEW</p>
+              <p style={{ color: "#b0210b", fontWeight: "bolder" }}>OVERVIEW</p>
               {detail.overview}
             </div>
           </div>
@@ -161,33 +175,33 @@ export function MovieDetail({ match }) {
   
         <div className="row mt-3">
           <div className="col-md-3">
-            <p style={{ color: "#5a606b", fontWeight: "bolder" }}>RELEASE DATE</p>
+            <p style={{ color: "#b0210b", fontWeight: "bolder" }}>RELEASE DATE</p>
             <p style={{ color: "#f4c10f" }}>{detail.release_date}</p>
           </div>
           <div className="col-md-3">
-            <p style={{ color: "#5a606b", fontWeight: "bolder" }}>RUN TIME</p>
+            <p style={{ color: "#b0210b", fontWeight: "bolder" }}>RUN TIME</p>
             <p style={{ color: "#f4c10f" }}>{detail.runtime}</p>
           </div>
           <div className="col-md-3">
-            <p style={{ color: "#5a606b", fontWeight: "bolder" }}>BUDGET</p>
+            <p style={{ color: "#b0210b", fontWeight: "bolder" }}>BUDGET</p>
             <p style={{ color: "#f4c10f" }}>{detail.budget}</p>
           </div>
           <div className="col-md-3">
-            <p style={{ color: "#5a606b", fontWeight: "bolder" }}>HOMEPAGE</p>
+            <p style={{ color: "#b0210b", fontWeight: "bolder" }}>HOMEPAGE</p>
             <p style={{ color: "#f4c10f" }}>{detail.homepage}</p>
           </div>
         </div>
   
         <div className="row mt-3">
           <div className="col">
-            <p style={{ color: "#5a606b", fontWeight: "bolder" }}>CASTS</p>
+            <p style={{ color: "#b0210b", fontWeight: "bolder" }}>CASTS</p>
           </div>
         </div>
         <div className="row mt-3">{castList}</div>
   
         <div className="row mt-3">
           <div className="col">
-            <p style={{ color: "#5a606b", fontWeight: "bolder" }}>
+            <p style={{ color: "#b0210b", fontWeight: "bolder" }}>
               SIMILAR MOVIES
             </p>
           </div>
@@ -198,7 +212,7 @@ export function MovieDetail({ match }) {
         <hr className="mt-5" style={{ borderTop: "1px solid #5a606b" }}></hr>
   
          <div className="row mt-3 mb-5">
-        <div className="col-md-8 col-sm-6" style={{ color: "#5a606b" }}>
+        <div className="col-md-8 col-sm-6" style={{ color: "#020024" }}>
           <h3>ABOUT US</h3>
           <p>
           🎬 jakFilm Picture 🎥
@@ -211,28 +225,28 @@ export function MovieDetail({ match }) {
           </p>
           <ul className="list-inline">
             <li className="list-inline-item">
-              <a href="/" style={{ color: "#f4c10f" }}>
+              <a href="/" style={{ color: "#5B86E5" }}>
                 <i className="fab fa-facebook"></i>
               </a>
             </li>
             <li className="list-inline-item">
-              <a href="/" style={{ color: "#f4c10f" }}>
+              <a href="/" style={{ color: "#ED213A" }}>
                 <i className="fab fa-youtube"></i>
               </a>
             </li>
             <li className="list-inline-item">
-              <a href="/" style={{ color: "#f4c10f" }}>
+              <a href="/" style={{ color: "#36D1DC" }}>
                 <i className="fab fa-twitter"></i>
               </a>
             </li>
             <li className="list-inline-item">
-              <a href="/" style={{ color: "#f4c10f" }}>
+              <a href="/" style={{ color: "#E94057" }}>
                 <i className="fab fa-instagram"></i>
               </a>
             </li>
           </ul>
         </div>
-        <div className="col-md-4 col-sm-6" style={{ color: "#5a606b" }}>
+        <div className="col-md-4 col-sm-6" style={{ color: "#020024" }}>
           <h3>KEEP IN TOUCH</h3>
           <ul className="list-unstyled">
             <li>

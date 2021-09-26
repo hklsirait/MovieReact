@@ -41,7 +41,7 @@ export function Home(){
   });
   const genreList = genres.map((item, index) => {
     return (
-      <li className="list-inline-item" key={index}>
+      <li className="list-inline-item" key={index} color="#D66D75">
         <button
           type="button"
           className="btn btn-outline-info"
@@ -86,20 +86,15 @@ return (
     </div>
     <div className="row mt-3">
         <div className="col">
-          <ul className="list-inline">{genreList}</ul>
+          <h2>Choose your genre!</h2>
+          <ul className="list-inline" style={{color: "#D66D75"}}>{genreList}</ul>
         </div>
     </div>
-    <div className="row mt-3">
-        <div className="col">
-          <div className="float-right">
-            <i className="far fa-arrow-alt-circle-right"></i>
-          </div>
-        </div>
-      </div>
+  
     <div className="row mt-3">{movieList}</div>
 
     <div className="row mt-3 mb-5">
-        <div className="col-md-8 col-sm-6" style={{ color: "#5a606b" }}>
+        <div className="col-md-8 col-sm-6" style={{ color: "#020024" }}>
           <h3>ABOUT US</h3>
           <p>
           🎬 jakFilm Picture 🎥
@@ -112,28 +107,28 @@ return (
           </p>
           <ul className="list-inline">
             <li className="list-inline-item">
-              <a href="/" style={{ color: "#f4c10f" }}>
+              <a href="/" style={{ color: "#5B86E5" }}>
                 <i className="fab fa-facebook"></i>
               </a>
             </li>
             <li className="list-inline-item">
-              <a href="/" style={{ color: "#f4c10f" }}>
+              <a href="/" style={{ color: "#ED213A" }}>
                 <i className="fab fa-youtube"></i>
               </a>
             </li>
             <li className="list-inline-item">
-              <a href="/" style={{ color: "#f4c10f" }}>
+              <a href="/" style={{ color: "#36D1DC" }}>
                 <i className="fab fa-twitter"></i>
               </a>
             </li>
             <li className="list-inline-item">
-              <a href="/" style={{ color: "#f4c10f" }}>
+              <a href="/" style={{ color: "#E94057" }}>
                 <i className="fab fa-instagram"></i>
               </a>
             </li>
           </ul>
         </div>
-        <div className="col-md-4 col-sm-6" style={{ color: "#5a606b" }}>
+        <div className="col-md-4 col-sm-6" style={{ color: "#020024" }}>
           <h3>KEEP IN TOUCH</h3>
           <ul className="list-unstyled">
             <li>

@@ -4,6 +4,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"
 import ReactPlayer from "react-player";
 import { Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import {Form} from "react-bootstrap"
 
 
 export function MovieDetail({ match }) {
@@ -17,8 +19,11 @@ export function MovieDetail({ match }) {
     const [video, setVideo] = useState([]);
     const [casts, setCasts] = useState([]);
     const [similarMovie, setSimilarMovie] = useState([]);
-    // const [rate, setRate] = useState([]);
-  
+    const [inputRate, setInputRate] = useState([]);
+    const [dataRate, setRate] = useState([]);
+    const [addedRate, setAddedRate] = useState([]);
+
+    
     useEffect(() => {
       const fetchAPI = async () => {
         setDetail(await fetchMovieDetail(params.id));
@@ -29,16 +34,38 @@ export function MovieDetail({ match }) {
       fetchAPI();
     }, [params.id]);
 
+    const handleSubmit= (event) => {
+      event.prevenDefault()
+      setRate(inputRate)
+      setInputRate('')
+    }
+
+    const handleInputRate = (event) => {
+      
+      switch (event.target.name) {
+        case "rate":
+          setInputRate(event.target.value)
+          break;
+        default:
+          break;
+      }
+    }
+
+
     // const apiKey = '02a0af71da7001b41628363583b340a7';
     // const guestSession = '327bba39f3fc73896257444f71f4a6f0';
     // const session = '2629f70fb498edc263a0adb99118ac41f0053e8c';
+    // const movie_id = detail.id;
     // const ratePostURL = `https://api.themoviedb.org/3/movie/${movie_id}/rating?api_key=${apiKey}&guest_session_id=${guestSession}&session_id=${session}`;
      
     // useEffect(() => {
     //   axios.post(ratePostURL, {
-    //     value: rate
+    //     value: dataRate
+    //   }).then(response => {
+    //     setAddedRate(a=>[...a, response.data]);
     //   })
-    // })
+    // }, [addedRate])
+    
   
     genres = detail.genres;
   
@@ -159,6 +186,28 @@ export function MovieDetail({ match }) {
         <div className="row mt-3">
           <div className="col">
             <ul className="list-inline">{genresList}</ul>
+          </div>
+        </div>
+        
+        <div className="row mt-3" onSubmit={handleSubmit}>
+          <div className="col">
+            <Form className="form-create">
+              <div>
+                <label style={{color:"#b0210b", fontWeight:"bolder" }} > Give rate movie:
+                  <input type="text" name="rate" defaultValue={inputRate} oncClick={handleInputRate} />
+                </label>
+              </div>
+              <input type="submit" value="Submit" />
+            </Form>
+          </div>
+        </div>
+        <div className="row mt-3">
+          <div className="col">
+            <div className="text-center"></div>
+            <div className="mt-3">
+              <p>Your Rate</p>
+              {dataRate}
+            </div>
           </div>
         </div>
   

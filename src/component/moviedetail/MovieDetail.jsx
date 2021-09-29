@@ -2,10 +2,8 @@ import React,{ useState, useEffect } from "react";
 import { fetchMovieDetail, fetchMovieVideos, fetchCasts, fetchSimilarMovie } from "../../service/index";
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 import ReactPlayer from "react-player";
-import { Modal } from "react-bootstrap";
+import { Modal, Navbar, Nav, Container, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import {Form} from "react-bootstrap"
 
 
 export function MovieDetail({ match }) {
@@ -19,9 +17,6 @@ export function MovieDetail({ match }) {
     const [video, setVideo] = useState([]);
     const [casts, setCasts] = useState([]);
     const [similarMovie, setSimilarMovie] = useState([]);
-    const [inputRate, setInputRate] = useState([]);
-    const [dataRate, setRate] = useState([]);
-    const [addedRate, setAddedRate] = useState([]);
 
     
     useEffect(() => {
@@ -32,41 +27,8 @@ export function MovieDetail({ match }) {
         setSimilarMovie(await fetchSimilarMovie(params.id));
       };
       fetchAPI();
-    }, [params.id]);
-
-    const handleSubmit= (event) => {
-      event.prevenDefault()
-      setRate(inputRate)
-      setInputRate('')
-    }
-
-    const handleInputRate = (event) => {
-      
-      switch (event.target.name) {
-        case "rate":
-          setInputRate(event.target.value)
-          break;
-        default:
-          break;
-      }
-    }
-
-
-    // const apiKey = '02a0af71da7001b41628363583b340a7';
-    // const guestSession = '327bba39f3fc73896257444f71f4a6f0';
-    // const session = '2629f70fb498edc263a0adb99118ac41f0053e8c';
-    // const movie_id = detail.id;
-    // const ratePostURL = `https://api.themoviedb.org/3/movie/${movie_id}/rating?api_key=${apiKey}&guest_session_id=${guestSession}&session_id=${session}`;
-     
-    // useEffect(() => {
-    //   axios.post(ratePostURL, {
-    //     value: dataRate
-    //   }).then(response => {
-    //     setAddedRate(a=>[...a, response.data]);
-    //   })
-    // }, [addedRate])
+    }, [params.id])
     
-  
     genres = detail.genres;
   
     const MoviePalyerModal = (props) => {
@@ -147,6 +109,20 @@ export function MovieDetail({ match }) {
     });
   
     return (
+      <div>
+      <Card>
+        <Navbar collapseOnSelect fixed="top" expand="sm" bg="white" variant="white">
+            <Container>
+                <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+                <Navbar.Collapse id='responsive-navbar-nav'>
+                    <Nav>
+                        <Nav.Link href="/">🎬 jakFilm Picture 🎥</Nav.Link>
+                        <Nav.Link href="/favorite">Favorite</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+      </Navbar>
+      </Card>
       <div className="container">
         <div className="row mt-2">
           <MoviePalyerModal
@@ -189,28 +165,6 @@ export function MovieDetail({ match }) {
           </div>
         </div>
         
-        <div className="row mt-3" onSubmit={handleSubmit}>
-          <div className="col">
-            <Form className="form-create">
-              <div>
-                <label style={{color:"#b0210b", fontWeight:"bolder" }} > Give rate movie:
-                  <input type="text" name="rate" defaultValue={inputRate} oncClick={handleInputRate} />
-                </label>
-              </div>
-              <input type="submit" value="Submit" />
-            </Form>
-          </div>
-        </div>
-        <div className="row mt-3">
-          <div className="col">
-            <div className="text-center"></div>
-            <div className="mt-3">
-              <p>Your Rate</p>
-              {dataRate}
-            </div>
-          </div>
-        </div>
-  
         <div className="row mt-3">
           <div className="col">
             <div className="text-center">
@@ -324,6 +278,7 @@ export function MovieDetail({ match }) {
             </li>
           </ul>
         </div>
+      </div>
       </div>
       </div>
     );

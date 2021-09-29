@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiKey = '02a0af71da7001b41628363583b340a7';
+const apiKey = '2e89a7f6677def5a021145d6f5e057ad';
 const url = 'https://api.themoviedb.org/3';
 const nowPlayingUrl = `${url}/movie/now_playing`;
 const topratedUrl = `${url}/movie/top_rated`;

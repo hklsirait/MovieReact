@@ -1,10 +1,17 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import { fetchMovies, fetchGenre, fetchMovieByGenre, fetchPersons, fetchTopratedMovie} from "../../service";
-import ReactDOM from "react-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link } from "react-router-dom";
+import { Navbar, Nav, Container, Card  } from "react-bootstrap";
+import axios from "axios";
+const api_Key = "2e89a7f6677def5a021145d6f5e057ad"
+const sessionId = "d9756624403bd33e07dbf8ff04e99bd549da4238"
+const acc_id = "11183670"
+const urlBASE = "https://api.themoviedb.org/3/"
+
+
 
 
 
@@ -15,6 +22,7 @@ export function Home(){
   const [movieByGenre, setMovieByGenre] = useState([]);
   const [persons, setPersons] = useState([]);
   const [topRated, setTopRated] = useState([]);
+  const [favMov, setFavMov] = useState([]);
 
   useEffect(() => {
     const fetchAPI = async () => {
@@ -30,9 +38,10 @@ export function Home(){
   const handleGenreClick = async (genre_id) => {
     setMovieByGenre(await fetchMovieByGenre(genre_id));
   };
-  const movies = nowPlaying.slice(0, 5).map((item, index) => {
+  
+  const movies = nowPlaying.slice(0, 7).map((item, index) => {
       return(
-          <div style={{ width: "500" }} key={index}>
+          <div style={{ width:"100%" }} key={index}>
               <div className="carousel-center">
                   <img style={{ height: 600 }} src={item.backPoster} alt={item.title} />
               </div>
@@ -55,7 +64,26 @@ export function Home(){
     );
   });
   const movieList = movieByGenre.slice(0, 28).map((item, index) => {
-    return (
+
+
+    const addFavList = (id) => {
+      axios.post(urlBASE + "account/" + acc_id + "/favorite", 
+      {
+        media_type: "movie",
+        media_id: id,
+        favorite: true
+      },
+      {
+        params:{
+          api_key: api_Key,
+          session_id: sessionId
+        }
+      }).then((response) => {
+        setFavMov(response.data.status_message)
+      });
+    }
+
+    return (  
       <div className="col-md-3 col-sm-6" key={index}>
         <div className="card">
           <Link to={`/movie/${item.id}`}>
@@ -64,12 +92,32 @@ export function Home(){
         </div>
         <div className="mt-3">
           <p style={{ fontWeight: "bolder" }}>{item.title}</p>
+          <button className="btn btn-primary btn-sm" 
+          onClick={() => {addFavList(item.id)}}
+          ><b>+</b></button>
           <p>Rated: {item.rating}</p>
+          <p>Id: {item.id}</p>
         </div>
       </div>
     );
   });
+ 
 return (
+
+<>
+<Card>
+<Navbar collapseOnSelect fixed="top" expand="sm" bg="white" variant="white">
+            <Container>
+                <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+                <Navbar.Collapse id='responsive-navbar-nav'>
+                    <Nav>
+                        <Nav.Link href="/">🎬 jakFilm Picture 🎥</Nav.Link>
+                        <Nav.Link href="/favorite">Favorite</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+</Navbar>
+</Card>
 <div className="container">
     <div className="row mt-2 ">
       <div className="col">
@@ -92,7 +140,7 @@ return (
     </div>
   
     <div className="row mt-3">{movieList}</div>
-
+   
     <div className="row mt-3 mb-5">
         <div className="col-md-8 col-sm-6" style={{ color: "#020024" }}>
           <h3>ABOUT US</h3>
@@ -159,6 +207,7 @@ return (
         </div>
       </div>
 </div>
+</>
   )
 }
 export default Home;
